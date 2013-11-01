@@ -103,6 +103,7 @@ TableView::VerticalFillOrder TableView::getVerticalFillOrder()
 
 void TableView::reloadData()
 {
+    _oldDirection = Direction::NONE;
     Object* pObj = NULL;
     CCARRAY_FOREACH(_cellsUsed, pObj)
     {
