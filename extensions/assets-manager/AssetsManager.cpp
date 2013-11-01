@@ -182,6 +182,11 @@ bool AssetsManager::checkUpdate()
     return true;
 }
 
+string AssetsManager::getNewVersion()
+{
+    return _version;
+}
+
 void AssetsManager::downloadAndUncompress()
 {
     do
@@ -223,10 +228,9 @@ void AssetsManager::update()
     // 1. Urls of package and version should be valid;
     // 2. Package should be a zip file.
     if (_versionFileUrl.size() == 0 ||
-        _packageUrl.size() == 0 ||
-        std::string::npos == _packageUrl.find(".zip"))
+        _packageUrl.size() == 0)
     {
-        CCLOG("no version file url, or no package url, or the package is not a zip file");
+        CCLOG("no version file url, or no package url");
         _isDownloading = false;
         return;
     }
