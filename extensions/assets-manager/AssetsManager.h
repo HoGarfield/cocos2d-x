@@ -149,7 +149,7 @@ public:
      * @js NA
      * @lua NA
      */
-    AssetsManagerDelegateProtocol* getDelegate() { return _delegate ;}
+    AssetsManagerDelegateProtocol* getDelegate() const { return _delegate ;}
     
     /** @brief Sets connection time out in seconds
      */
