@@ -64,7 +64,7 @@ static Dictionary* s_pConfigurations = NULL;
 
 CCBMFontConfiguration* FNTConfigLoadFile(const std::string& fntFile)
 {
-    CCBMFontConfiguration* pRet = NULL;
+    CCBMFontConfiguration* ret = NULL;
 
     if( s_pConfigurations == NULL )
     {
@@ -72,17 +72,17 @@ CCBMFontConfiguration* FNTConfigLoadFile(const std::string& fntFile)
         s_pConfigurations->init();
     }
 
-    pRet = static_cast<CCBMFontConfiguration*>( s_pConfigurations->objectForKey(fntFile) );
-    if( pRet == NULL )
+    ret = static_cast<CCBMFontConfiguration*>( s_pConfigurations->objectForKey(fntFile) );
+    if( ret == NULL )
     {
-        pRet = CCBMFontConfiguration::create(fntFile.c_str());
-        if (pRet)
+        ret = CCBMFontConfiguration::create(fntFile.c_str());
+        if (ret)
         {
-            s_pConfigurations->setObject(pRet, fntFile);
+            s_pConfigurations->setObject(ret, fntFile);
         }        
     }
 
-    return pRet;
+    return ret;
 }
 
 void FNTConfigRemoveCache( void )
@@ -98,19 +98,19 @@ void FNTConfigRemoveCache( void )
 //BitmapFontConfiguration
 //
 
-CCBMFontConfiguration * CCBMFontConfiguration::create(const char *FNTfile)
+CCBMFontConfiguration * CCBMFontConfiguration::create(const std::string& FNTfile)
 {
-    CCBMFontConfiguration * pRet = new CCBMFontConfiguration();
-    if (pRet->initWithFNTfile(FNTfile))
+    CCBMFontConfiguration * ret = new CCBMFontConfiguration();
+    if (ret->initWithFNTfile(FNTfile))
     {
-        pRet->autorelease();
-        return pRet;
+        ret->autorelease();
+        return ret;
     }
-    CC_SAFE_DELETE(pRet);
+    CC_SAFE_DELETE(ret);
     return NULL;
 }
 
-bool CCBMFontConfiguration::initWithFNTfile(const char *FNTfile)
+bool CCBMFontConfiguration::initWithFNTfile(const std::string& FNTfile)
 {
     _kerningDictionary = NULL;
     _fontDefDictionary = NULL;
@@ -767,9 +767,9 @@ void LabelBMFont::setString(unsigned short *newString, bool needUpdateLabel)
     }
 }
 
-const char* LabelBMFont::getString(void) const
+const std::string& LabelBMFont::getString() const
 {
-    return _initialStringUTF8.c_str();
+    return _initialStringUTF8;
 }
 
 void LabelBMFont::setCString(const char *label)
