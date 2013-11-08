@@ -120,13 +120,15 @@ static std::string keyWithHash( const char* prefix, const std::string& url )
 // hashed version
 std::string AssetsManager::keyOfVersion() const
 {
-    return keyWithHash(KEY_OF_VERSION,_packageUrl);
+//    return keyWithHash(KEY_OF_VERSION,_packageUrl);
+    return KEY_OF_VERSION;
 }
 
 // hashed version
 std::string AssetsManager::keyOfDownloadedVersion() const
 {
-    return keyWithHash(KEY_OF_DOWNLOADED_VERSION,_packageUrl);
+//    return keyWithHash(KEY_OF_DOWNLOADED_VERSION,_packageUrl);
+    return KEY_OF_DOWNLOADED_VERSION;
 }
 
 static size_t getVersionCode(void *ptr, size_t size, size_t nmemb, void *userdata)
