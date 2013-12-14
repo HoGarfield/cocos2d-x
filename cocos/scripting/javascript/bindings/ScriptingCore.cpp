@@ -533,7 +533,7 @@ JSBool ScriptingCore::runScript(const char *path, JSObject* global, JSContext* c
     
     // a) check jsc file first
     std::string byteCodePath = RemoveFileExt(std::string(path)) + BYTE_CODE_FILE_EXT;
-    long length = 0;
+    ssize_t length = 0;
     unsigned char* data = futil->getFileData(byteCodePath.c_str(),
                                     "rb",
                                     &length);
@@ -1480,21 +1480,21 @@ JSBool jsb_get_reserved_slot(JSObject *obj, uint32_t idx, jsval& ret)
 
 js_proxy_t* jsb_new_proxy(void* nativeObj, JSObject* jsObj)
 {
-    js_proxy_t* p;
+    js_proxy_t* p = nullptr;
     JS_NEW_PROXY(p, nativeObj, jsObj);
     return p;
 }
 
 js_proxy_t* jsb_get_native_proxy(void* nativeObj)
 {
-    js_proxy_t* p;
+    js_proxy_t* p = nullptr;
     JS_GET_PROXY(p, nativeObj);
     return p;
 }
 
 js_proxy_t* jsb_get_js_proxy(JSObject* jsObj)
 {
-    js_proxy_t* p;
+    js_proxy_t* p = nullptr;
     JS_GET_NATIVE_PROXY(p, jsObj);
     return p;
 }

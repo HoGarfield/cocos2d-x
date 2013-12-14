@@ -91,7 +91,7 @@ public:
         parser.setDelegator(this);
 
         parser.parse(pFileName);
-		return std::move(_rootDict);
+		return _rootDict;
     }
 
     ValueVector arrayWithContentsOfFile(const char* pFileName)
@@ -103,7 +103,7 @@ public:
         parser.setDelegator(this);
 
         parser.parse(pFileName);
-		return std::move(_rootArray);
+		return _rootArray;
     }
 
     void startElement(void *ctx, const char *name, const char **atts)
@@ -307,14 +307,14 @@ ValueMap FileUtils::getValueMapFromFile(const std::string& filename)
 {
     std::string fullPath = fullPathForFilename(filename.c_str());
     DictMaker tMaker;
-    return std::move(tMaker.dictionaryWithContentsOfFile(fullPath.c_str()));
+    return tMaker.dictionaryWithContentsOfFile(fullPath.c_str());
 }
 
 ValueVector FileUtils::getValueVectorFromFile(const std::string& filename)
 {
     std::string fullPath = fullPathForFilename(filename.c_str());
     DictMaker tMaker;
-    return std::move(tMaker.arrayWithContentsOfFile(fullPath.c_str()));
+    return tMaker.arrayWithContentsOfFile(fullPath.c_str());
 }
 
 
@@ -492,7 +492,7 @@ void FileUtils::purgeCachedEntries()
     _fullPathCache.clear();
 }
 
-unsigned char* FileUtils::getFileData(const char* filename, const char* mode, long *size)
+unsigned char* FileUtils::getFileData(const char* filename, const char* mode, ssize_t *size)
 {
     unsigned char * buffer = nullptr;
     CCASSERT(filename != nullptr && size != nullptr && mode != nullptr, "Invalid parameters.");
@@ -522,7 +522,7 @@ unsigned char* FileUtils::getFileData(const char* filename, const char* mode, lo
     return buffer;
 }
 
-unsigned char* FileUtils::getFileDataFromZip(const char* zipFilePath, const char* filename, long *size)
+unsigned char* FileUtils::getFileDataFromZip(const char* zipFilePath, const char* filename, ssize_t *size)
 {
     unsigned char * buffer = nullptr;
     unzFile pFile = nullptr;
@@ -548,7 +548,7 @@ unsigned char* FileUtils::getFileDataFromZip(const char* zipFilePath, const char
         CC_BREAK_IF(UNZ_OK != nRet);
 
         buffer = (unsigned char*)malloc(FileInfo.uncompressed_size);
-        int CC_UNUSED nSize = unzReadCurrentFile(pFile, buffer, FileInfo.uncompressed_size);
+        int CC_UNUSED nSize = unzReadCurrentFile(pFile, buffer, static_cast<unsigned>(FileInfo.uncompressed_size));
         CCASSERT(nSize == 0 || nSize == (int)FileInfo.uncompressed_size, "the file size is wrong");
 
         *size = FileInfo.uncompressed_size;
@@ -756,7 +756,7 @@ void FileUtils::loadFilenameLookupDictionaryFromFile(const std::string &filename
             int version = metadata["version"].asInt();
             if (version != 1)
             {
-                CCLOG("cocos2d: ERROR: Invalid filenameLookup dictionary version: %ld. Filename: %s", (long)version, filename.c_str());
+                CCLOG("cocos2d: ERROR: Invalid filenameLookup dictionary version: %d. Filename: %s", version, filename.c_str());
                 return;
             }
             setFilenameLookupDictionary( dict["filenames"].asValueMap());

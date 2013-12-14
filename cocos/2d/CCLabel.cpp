@@ -640,7 +640,7 @@ void Label::updateDisplayedOpacity(GLubyte parentOpacity)
     });
 
     V3F_C4B_T2F_Quad *quads = _textureAtlas->getQuads();
-    long count = _textureAtlas->getTotalQuads();
+    auto count = _textureAtlas->getTotalQuads();
     Color4B color4( _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity );
     if (_isOpacityModifyRGB)
     {
@@ -706,7 +706,7 @@ void Label::updateDisplayedColor(const Color3B& parentColor)
     });
 
     V3F_C4B_T2F_Quad *quads = _textureAtlas->getQuads();
-    long count = _textureAtlas->getTotalQuads();
+    auto count = _textureAtlas->getTotalQuads();
     Color4B color4( _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity );
 
     // special opacity for premultiplied textures
@@ -734,6 +734,11 @@ bool Label::isCascadeColorEnabled() const
 void Label::setCascadeColorEnabled(bool cascadeColorEnabled)
 {
     _cascadeColorEnabled = cascadeColorEnabled;
+}
+
+std::string Label::getDescription() const
+{
+    return StringUtils::format("<Label | Tag = %d, Label = '%s'>", _tag, cc_utf16_to_utf8(_currentUTF16String,-1,NULL,NULL));
 }
 
 

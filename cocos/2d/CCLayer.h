@@ -70,10 +70,10 @@ public:
     CC_DEPRECATED_ATTRIBUTE virtual void ccTouchEnded(Touch *pTouch, Event *pEvent) final {CC_UNUSED_PARAM(pTouch); CC_UNUSED_PARAM(pEvent);}
     CC_DEPRECATED_ATTRIBUTE virtual void ccTouchCancelled(Touch *pTouch, Event *pEvent) final {CC_UNUSED_PARAM(pTouch); CC_UNUSED_PARAM(pEvent);}
     
-    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesBegan(Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
-    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesMoved(Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
-    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesEnded(Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
-    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesCancelled(Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
+    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesBegan(__Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
+    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesMoved(__Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
+    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesEnded(__Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
+    CC_DEPRECATED_ATTRIBUTE virtual void ccTouchesCancelled(__Set *pTouches, Event *pEvent) final {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
     
 	/* Callback function should not be deprecated, it will generate lots of warnings.
 	Since 'setTouchEnabled' was deprecated, it will make warnings if developer overrides onTouchXXX and invokes setTouchEnabled(true) instead of using EventDispatcher::addEventListenerWithXXX.
@@ -157,7 +157,10 @@ public:
     CC_DEPRECATED_ATTRIBUTE virtual void keyBackClicked() final {};
     CC_DEPRECATED_ATTRIBUTE virtual void keyMenuClicked() final {};
 
-protected:      
+    // Overrides
+    virtual std::string getDescription() const override;
+
+protected:
     Layer();
     virtual ~Layer();
     virtual bool init();
@@ -214,9 +217,11 @@ public:
     virtual void updateDisplayedColor(const Color3B& parentColor) override;
     virtual bool isCascadeColorEnabled() const override;
     virtual void setCascadeColorEnabled(bool cascadeColorEnabled) override;
-    
+    virtual std::string getDescription() const override;
+
     virtual void setOpacityModifyRGB(bool bValue) override {CC_UNUSED_PARAM(bValue);}
     virtual bool isOpacityModifyRGB() const override { return false; }
+
 
 protected:
     LayerRGBA();
@@ -283,6 +288,8 @@ public:
     *@endcode
     */
     virtual void setBlendFunc(const BlendFunc& blendFunc) override;
+
+    virtual std::string getDescription() const override;
 
 protected:
     LayerColor();
@@ -382,6 +389,8 @@ public:
     /** Returns the directional vector used for the gradient */
     const Point& getVector() const;
 
+    virtual std::string getDescription() const override;
+
 protected:
     virtual void updateColor() override;
 
@@ -442,6 +451,8 @@ public:
     The current (old) layer will be removed from it's parent with 'cleanup=true'.
     */
     void switchToAndReleaseMe(int n);
+
+    virtual std::string getDescription() const override;
 
 protected:
     
