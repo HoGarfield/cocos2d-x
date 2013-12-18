@@ -259,7 +259,7 @@ void AssetsManager::update()
     }
     
     // Check if there is a new version.
-    if (! checkUpdate())
+    if (! checkUpdate()&&false)
     {
         _isDownloading = false;
         return;
