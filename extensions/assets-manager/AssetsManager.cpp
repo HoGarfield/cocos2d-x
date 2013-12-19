@@ -194,7 +194,7 @@ void AssetsManager::downloadAndUncompress()
 {
     do
     {
-        if (_downloadedVersion != _version)
+        if (true||_downloadedVersion != _version)
         {
             if (! downLoad()) break;
             
@@ -259,7 +259,7 @@ void AssetsManager::update()
     }
     
     // Check if there is a new version.
-    if (! checkUpdate()&&false)
+    if (! checkUpdate())
     {
         _isDownloading = false;
         return;

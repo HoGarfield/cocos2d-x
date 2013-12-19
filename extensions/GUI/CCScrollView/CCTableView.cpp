@@ -567,6 +567,8 @@ void TableView::onTouchEnded(Touch *pTouch, Event *pEvent)
     if (!this->isVisible()) {
         return;
     }
+    
+    ScrollView::onTouchEnded(pTouch, pEvent);
 
     if (_touchedCell){
 		Rect bb = this->getBoundingBox();
@@ -581,7 +583,7 @@ void TableView::onTouchEnded(Touch *pTouch, Event *pEvent)
         _touchedCell = NULL;
     }
 
-    ScrollView::onTouchEnded(pTouch, pEvent);
+    
 }
 
 bool TableView::onTouchBegan(Touch *pTouch, Event *pEvent)
