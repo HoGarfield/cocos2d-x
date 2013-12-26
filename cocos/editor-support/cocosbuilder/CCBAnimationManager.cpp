@@ -274,6 +274,9 @@ int CCBAnimationManager::getSequenceId(const char* pSequenceName)
             return seq->getSequenceId();
         }
     }
+    
+    CCLOG("can not found animation %s",pSequenceName);
+    
     return -1;
 }
 

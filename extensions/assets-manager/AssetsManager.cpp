@@ -217,15 +217,17 @@ void AssetsManager::downloadAndUncompress()
         
         ThreadHelper::runOnGLThread([&, this] {
             
-            // Record new version code.
-            UserDefault::getInstance()->setStringForKey(this->keyOfVersion().c_str(), this->_version.c_str());
+//            // Record new version code.
+//            UserDefault::getInstance()->setStringForKey(this->keyOfVersion().c_str(), this->_version.c_str());
+//            
+//            // Unrecord downloaded version code.
+//            UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(), "");
+//            UserDefault::getInstance()->flush();
+//            
+//            // Set resource search path.
+//            this->setSearchPath();
             
-            // Unrecord downloaded version code.
-            UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(), "");
-            UserDefault::getInstance()->flush();
-            
-            // Set resource search path.
-            this->setSearchPath();
+
             
             // Delete unloaded zip file.
             string zipfileName = this->_storagePath + TEMP_PACKAGE_FILE_NAME;
