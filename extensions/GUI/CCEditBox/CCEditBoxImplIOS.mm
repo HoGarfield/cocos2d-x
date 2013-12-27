@@ -536,7 +536,6 @@ static CGPoint convertDesignCoordToScreenCoord(const Point& designCoord, bool bI
 void EditBoxImplIOS::setPosition(const Point& pos)
 {
 	_position = pos;
-	adjustTextFieldPosition();
 }
 
 void EditBoxImplIOS::setVisible(bool visible)
@@ -574,7 +573,6 @@ void EditBoxImplIOS::visit(void)
 
 void EditBoxImplIOS::onEnter(void)
 {
-    adjustTextFieldPosition();
     const char* pText = getText();
     if (pText) {
         setInactiveText(pText);
@@ -595,6 +593,8 @@ void EditBoxImplIOS::openKeyboard()
 {
 	_label->setVisible(false);
 	_labelPlaceHolder->setVisible(false);
+    
+    this->adjustTextFieldPosition();
 
 	_systemControl.textField.hidden = NO;
     [_systemControl openKeyboard];
