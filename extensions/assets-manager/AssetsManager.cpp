@@ -502,6 +502,47 @@ bool AssetsManager::downLoad()
 {
     // Create a file to save package.
     const string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
+    
+    //There are not directory entry in some case.
+    //So we need to test whether the file directory exists when uncompressing file entry
+    //, if does not exist then create directory
+    const string fileNameStr(outFileName);
+    
+    size_t startIndex=1;
+    
+    size_t index=fileNameStr.find("/",startIndex);
+    
+    while(index != std::string::npos)
+    {
+        const string dir=fileNameStr.substr(0,index);
+        
+        FILE *out = fopen(dir.c_str(), "r");
+        
+        if(!out)
+        {
+            if (!createDirectory(dir.c_str()))
+            {
+                CCLOG("can not create directory %s", dir.c_str());
+
+                return false;
+            }
+            else
+            {
+                CCLOG("create directory %s",dir.c_str());
+            }
+        }
+        else
+        {
+            fclose(out);
+        }
+        
+        startIndex=index+1;
+        
+        index=fileNameStr.find("/",startIndex);
+        
+    }
+    
+    
     FILE *fp = fopen(outFileName.c_str(), "wb");
     if (! fp)
     {
