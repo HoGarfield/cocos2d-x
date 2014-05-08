@@ -2074,7 +2074,7 @@ void* serverEntryPoint(void*)
             TRACE_DEBUGGER_SERVER("debug server : client connected");
             char buf[256];
             int readBytes;
-            while ((readBytes = read(clientSocket, buf, 256)) > 0) {
+                while ((readBytes = ::recv(clientSocket, buf, sizeof(buf), 0)) > 0){
                 buf[readBytes] = '\0';
                 TRACE_DEBUGGER_SERVER("debug server : received command >%s", buf);
                 // no other thread is using this

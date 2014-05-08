@@ -72,6 +72,8 @@ public:
     int getAutoPlaySequenceId();
     void setAutoPlaySequenceId(int autoPlaySequenceId);
     
+    float getSequenceDuration(const char* name);
+    
     CCNode* getRootNode();
     void setRootNode(CCNode* pRootNode); // weak reference    
     

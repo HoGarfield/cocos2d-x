@@ -244,6 +244,15 @@ CCObject* CCBAnimationManager::getBaseValue(CCNode *pNode, const char* pPropName
     return props->objectForKey(pPropName);
 }
 
+float CCBAnimationManager::getSequenceDuration(const char* name){
+    
+    int id=getSequenceId(name);
+    
+    CCBSequence* pSeq=getSequence(id);
+    
+    return pSeq->getDuration();
+}
+
 int CCBAnimationManager::getSequenceId(const char* pSequenceName)
 {
     CCObject *pElement = NULL;
