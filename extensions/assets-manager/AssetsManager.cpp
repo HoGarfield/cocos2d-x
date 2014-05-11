@@ -507,13 +507,13 @@ bool AssetsManager::downLoad()
     // Create dir
     string fileNameStr(outFileName);
     
-    size_t startIndex=0;
+    size_t startIndex=1;
     
     size_t index=fileNameStr.find("/",startIndex);
     
     while(index!=-1)
     {
-        string dir=_storagePath+fileNameStr.substr(0,index);
+        string dir=fileNameStr.substr(0,index);
         
         FILE *out = fopen(dir.c_str(), "r");
         
