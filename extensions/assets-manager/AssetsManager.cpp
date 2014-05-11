@@ -260,12 +260,12 @@ void AssetsManager::update()
         return;
     }
     
-    // Check if there is a new version.
-    if (! checkUpdate())
-    {
-        _isDownloading = false;
-        return;
-    }
+//    // Check if there is a new version.
+//    if (! checkUpdate())
+//    {
+//        _isDownloading = false;
+//        return;
+//    }
     
     // Is package already downloaded?
     _downloadedVersion = UserDefault::getInstance()->getStringForKey(keyOfDownloadedVersion().c_str());
@@ -554,6 +554,13 @@ bool AssetsManager::downLoad()
     }
     
     // Download pacakge
+    _curl = curl_easy_init();
+    if (! _curl)
+    {
+        CCLOG("can not init curl");
+        return false;
+    }
+    
     CURLcode res;
     curl_easy_setopt(_curl, CURLOPT_URL, _packageUrl.c_str());
     curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, downLoadPackage);
